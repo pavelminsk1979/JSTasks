@@ -1,16 +1,20 @@
 import React from 'react';
 import CurrencyExchange from '../../components/CurrencyExchange/CurrencyExchange';
-import { CurrencyState, CurrencyType } from '../../redux/currencyReducer';
-import { Dispatch } from 'redux';
-import {
-    ChangeActionAC,
-    ChangeCurrencyFieldAC,
-    СhangeCurrentCurrencyAC,
-    CurrencyReducersTypes
-} from '../../redux/actions';
-import { connect, ConnectedProps } from 'react-redux';
+import { CurrencyType } from '../../redux/currencyReducer';
 
-const CurrencyEContainer: React.FC<TProps> = props => {
+
+type TProps={
+    currencies:Array<CurrencyType>
+    currentCurrency:string
+    isBuying:boolean
+    amountOfBYN:string
+    amountOfCurrency:string
+    setCurrencyAmount:(amountOfBYN: string, amountOfCurrency: string)=>void
+    setAction:(isBuying: boolean)=>void
+    changeCurrency:(currency: string)=>void
+}
+
+export  const CurrencyEContainer: React.FC<TProps> = props => {
 
     const {
         currencies,
@@ -75,36 +79,3 @@ const CurrencyEContainer: React.FC<TProps> = props => {
         </React.Fragment>
     );
 };
-
-const mapStateToProps = ( { currency } : {currency: CurrencyState} ): CurrencyState => {
-    return {
-        currencies: currency.currencies,
-        currentCurrency: currency.currentCurrency,
-        isBuying: currency.isBuying,
-        amountOfBYN: currency.amountOfBYN,
-        amountOfCurrency: currency.amountOfCurrency,
-    };
-};
-
-// @ts-ignore
-const mapDispatchToProps = (dispatch: Dispatch<CurrencyReducersTypes>) : any => {
-    return {
-        setCurrencyAmount(amountOfBYN: string, amountOfCurrency: string) {
-            dispatch(ChangeCurrencyFieldAC(amountOfBYN, amountOfCurrency));
-        },
-        setAction(isBuying: boolean) {
-            dispatch(ChangeActionAC(isBuying));
-        },
-        changeCurrency(currency: string) {
-            dispatch(СhangeCurrentCurrencyAC(currency));
-        },
-    };
-};
-
-// @ts-ignore
-const connector = connect(mapStateToProps, mapDispatchToProps);
-
-type TProps = ConnectedProps<typeof connector>;
-
-export default connector(CurrencyEContainer);
-

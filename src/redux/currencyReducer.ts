@@ -33,14 +33,22 @@ const initialState: CurrencyState = {
         },
     ],
     currentCurrency: 'USD',
-    isBuying: true,
+    isBuying: true,    /*флаг для переключения КУПИЛ/ПРОДАЛ*/
     amountOfBYN: '',
     amountOfCurrency: '',
 };
 
 export const currencyReducer = (state: CurrencyState = initialState, action: CurrencyReducersTypes): CurrencyState => {
-    // @ts-ignore
     switch (action.type) {
+        case "CHANGE-ACTION":{
+            return {...state,isBuying:action.isBuying}
+        }
+        case "CHANGE-CURRENCY-FIELD":{
+            return {...state,amountOfBYN:action.amountOfBYN,amountOfCurrency:action.amountOfCurrency}
+        }
+        case "CHANGE-CURRENT-CURRENCY":{
+            return {...state,currentCurrency:action.currentCurrency}
+        }
         default:
             return state;
     }

@@ -1,29 +1,36 @@
-export enum ACTIONS_TYPE {
+/*export enum ACTIONS_TYPE {
     CHANGE_CURRENCY_FIELD_TYPE = 'CurrencyExchange/CHANGE_CURRENCY_FIELD_TYPE',
     CHANGE_CHANGE_ACTION = 'CurrencyExchange/CHANGE_CHANGE_ACTION',
     CHANGE_CURRENT_CURRENCY = 'CurrencyExchange/CHANGE_CURRENT_CURRENCY',
+}*/
+
+export type ChangeActionType = ReturnType<typeof ChangeActionAC>
+export const ChangeActionAC = (isBuying: boolean) => {
+    return {
+        type: 'CHANGE-ACTION',
+        isBuying
+    } as const
+};
+
+
+export type ChangeCurrencyFieldType = ReturnType<typeof ChangeCurrencyFieldAC>
+export const ChangeCurrencyFieldAC = (amountOfBYN: string, amountOfCurrency: string) => {
+    return {
+        type: 'CHANGE-CURRENCY-FIELD',
+        amountOfBYN,
+        amountOfCurrency
+    } as const
 }
 
 
-export type ChangeCurrencyFieldType = {
+export type ChangeCurrentCurrencyType = ReturnType<typeof СhangeCurrentCurrencyAC>
+export const СhangeCurrentCurrencyAC = (currentCurrency: string) => {
+    return {
+        type: 'CHANGE-CURRENT-CURRENCY',
+        currentCurrency,
+    } as const
 };
 
-// @ts-ignore
-export const ChangeCurrencyFieldAC = (amountOfBYN: string, amountOfCurrency: string): ChangeCurrencyFieldType => {
-};
-
-export type ChangeAction = {
-};
-
-// @ts-ignore
-export const ChangeActionAC = (isBuying: boolean): ChangeAction => {
-};
-
-export type ChangeCurrentCurrencyType = {
-};
-
-// @ts-ignore
-export const СhangeCurrentCurrencyAC = (currentCurrency: string): ChangeCurrentCurrencyType => {
-};
-
-export type CurrencyReducersTypes = ChangeCurrencyFieldType | ChangeAction | ChangeCurrentCurrencyType;
+export type CurrencyReducersTypes = ChangeCurrencyFieldType
+    | ChangeActionType
+    | ChangeCurrentCurrencyType;
